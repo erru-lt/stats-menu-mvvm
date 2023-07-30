@@ -16,32 +16,52 @@ namespace Assets.CodeBase.ViewModel
         public ReactiveProperty<int> PointsToSpendView = new();
 
         private readonly PlayerStats _playerStats;
+        private readonly CharacterAnimator _characterAnimator;
 
-        public StatsViewModel(PlayerStats playerStats)
+        public StatsViewModel(PlayerStats playerStats, CharacterAnimator characterAnimator)
         {
             _playerStats = playerStats;
+            _characterAnimator = characterAnimator;
 
             DefinePropertiesValue();
             SubscribeOnStatsChanges();
         }
 
-        public void IncreaseStrength() =>
+        public void IncreaseStrength()
+        {
+            _characterAnimator.PlayAttackAnimation();
             IncreaseStatValue(StrengthView);
+        }
 
-        public void IncreaseStamina() =>
+        public void IncreaseStamina()
+        {
+            _characterAnimator.PlayRunningAnimation();
             IncreaseStatValue(StaminaView);
+        }
 
-        public void IncreaseDefense() =>
+        public void IncreaseDefense()
+        {
+            _characterAnimator.PlayDefenseAnimation();
             IncreaseStatValue(DefenseView);
+        }
 
-        public void IncreaseLuck() =>
+        public void IncreaseLuck()
+        {
+            _characterAnimator.PlayCrouchAnimation();
             IncreaseStatValue(LuckView);
+        }
 
-        public void IncreaseMana() =>
+        public void IncreaseMana()
+        {
+            _characterAnimator.PlaySpellAnimation();
             IncreaseStatValue(ManaView);
+        }
 
-        public void IncreaseIntelligence() =>
+        public void IncreaseIntelligence()
+        {
+            _characterAnimator.PlaySpellAnimation();
             IncreaseStatValue(IntelligenceView);
+        }
 
         public void DecreaseStrength() =>
             DecreaseStatValue(StrengthView);

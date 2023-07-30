@@ -11,21 +11,22 @@ namespace Assets.CodeBase
     {
         [SerializeField] private StatsView _statsView;
         [SerializeField] private ButtonsView _buttonsView;
+        [SerializeField] private CharacterAnimator _characterAnimator;
 
-        private Player _playerData;
+        private PlayerDataSo _playerSo;
         private PlayerStats _playerStats;
         private StatsViewModel _statsViewModel;
         private ButtonsViewModel _buttonsViewModel;
-        private JSONDataLoader _jsonDataLoader;
-        
+        private StaticDataLoader _staticDataLoader;
+
         private void Start()
         {
-            _jsonDataLoader = new JSONDataLoader();
+            _staticDataLoader = new StaticDataLoader();
 
-            LoadDataFromJson();
-            InitializePlayerStats(_playerData);
+            LoadDataFromStaticDataLoader();
+            InitializePlayerStats(_playerSo);
 
-            _statsViewModel = new StatsViewModel(_playerStats);
+            _statsViewModel = new StatsViewModel(_playerStats, _characterAnimator);
             _buttonsViewModel = new ButtonsViewModel(_statsViewModel);
 
             _statsView.Construct(_statsViewModel);
@@ -35,10 +36,10 @@ namespace Assets.CodeBase
             _buttonsView.Initialize();
         }
 
-        private void LoadDataFromJson() => 
-            _playerData = _jsonDataLoader.Load<Player>(Application.dataPath + DataPath.JSONPlayerDataPath);
+        private void LoadDataFromStaticDataLoader() => 
+            _playerSo = _staticDataLoader.Load<PlayerDataSo>(DataPath.PlaerStaticDataPath);
 
-        private void InitializePlayerStats(Player playerData)
+        private void InitializePlayerStats(PlayerDataSo playerData)
         {
             _playerStats = new PlayerStats(
                 playerData.Strength,

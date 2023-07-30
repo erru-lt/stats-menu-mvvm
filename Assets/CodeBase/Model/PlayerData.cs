@@ -1,6 +1,6 @@
 ﻿namespace Assets.CodeBase.Model
 {
-    public class Player
+    public class PlayerData
     {
         public int Strength;
         public int Stamina;

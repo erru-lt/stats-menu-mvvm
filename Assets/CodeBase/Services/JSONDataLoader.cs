@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Assets.CodeBase.Services
 {
-    public class JSONDataLoader
+    public class JsonDataLoader
     {
-        public T Load<T>(string path) where T : class
+        public static T Load<T>(string path) where T : class
         {
             if (File.Exists(path) == false)
             {
